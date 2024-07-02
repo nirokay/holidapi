@@ -1,0 +1,9 @@
+= HolidAPI
+
+== About
+
+_HolidAPI_ (pronounced: _"Holiday-P-I"_), is a wrapper for multiple APIs serving information about holidays.
+
+== Currently supported countries
+
+* Germany via https://www.feiertage-api.de/[feiertage-api.de]
