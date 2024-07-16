@@ -1,4 +1,4 @@
-import std/[tables, options, times, strutils]
+import std/[options, times, strutils]
 
 const
     dateFormat*: string = "yyyy-MM-dd"
@@ -21,7 +21,7 @@ type
 proc `$`*(holiday: Holiday): string =
     ## Converts `Holiday` to a string
     var elements: seq[string] = @[
-        holiday.name,
+        "\"" & holiday.name & "\"",
         "on " & holiday.dateTime.format(dateFormat),
         "for " & $holiday.duration.inHours() & "h"
     ]

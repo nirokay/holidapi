@@ -7,5 +7,6 @@
         "Thuringia",
         "Vorpommern",
         "Würtemberg"
-    ]
+    ],
+    "asciidoc.antora.enableAntoraSupport": false
 }
