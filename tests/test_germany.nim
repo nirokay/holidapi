@@ -1,4 +1,4 @@
-import std/[unittest, json, tables]
+import std/[unittest, json, tables, strutils]
 import holidapi/country/germany
 
 const
@@ -8,12 +8,12 @@ const
     rawResponseOnlyDates: string = """{"Neujahrstag":"2024-01-01","Heilige Drei K\u00f6nige":"2024-01-06","Frauentag":"2024-03-08","Gr\u00fcndonnerstag":"2024-03-28","Karfreitag":"2024-03-29","Ostersonntag":"2024-03-31","Ostermontag":"2024-04-01","Tag der Arbeit":"2024-05-01","Christi Himmelfahrt":"2024-05-09","Pfingstsonntag":"2024-05-19","Pfingstmontag":"2024-05-20","Fronleichnam":"2024-05-30","Augsburger Friedensfest":"2024-08-08","Mari\u00e4 Himmelfahrt":"2024-08-15","Weltkindertag":"2024-09-20","Tag der Deutschen Einheit":"2024-10-03","Reformationstag":"2024-10-31","Allerheiligen":"2024-11-01","Bu\u00df- und Bettag":"2024-11-20","1. Weihnachtstag":"2024-12-25","2. Weihnachtstag":"2024-12-26"}"""
     rawResponseOnlyState: string = """{"Neujahrstag":{"datum":"2024-01-01","hinweis":""},"Heilige Drei K\u00f6nige":{"datum":"2024-01-06","hinweis":""},"Karfreitag":{"datum":"2024-03-29","hinweis":""},"Ostermontag":{"datum":"2024-04-01","hinweis":""},"Tag der Arbeit":{"datum":"2024-05-01","hinweis":""},"Christi Himmelfahrt":{"datum":"2024-05-09","hinweis":""},"Pfingstmontag":{"datum":"2024-05-20","hinweis":""},"Fronleichnam":{"datum":"2024-05-30","hinweis":""},"Augsburger Friedensfest":{"datum":"2024-08-08","hinweis":"Das Augsburger Friedensfest ist nur im Stadtgebiet Augsburg (nicht jedoch im angrenzenden Umland) gesetzlicher Feiertag (Art. 1 Abs. 2 Bayerisches Feiertagsgesetz[7])."},"Mari\u00e4 Himmelfahrt":{"datum":"2024-08-15","hinweis":"Mari\u00e4 Himmelfahrt ist in Bayern in von den derzeit 1704[8] (Zensus 2011, bis 2013: 1700) Gemeinden mit \u00fcberwiegend katholischer Bev\u00f6lkerung gesetzlicher Feiertag, in den restlichen 352 (Zensus 2011, bis 2013: 356) Gemeinden nicht. Gem\u00e4\u00df Art. 1 Abs. 3 des Bayerischen Feiertagsgesetzes[7] ist es Aufgabe des Bayerischen Landesamtes f\u00fcr Statistik und Datenverarbeitung, festzustellen, in welchen Gemeinden Mari\u00e4 Himmelfahrt gesetzlicher Feiertag ist. Die aktuelle Festlegung beruht auf dem Ergebnis der letzten in der Bundesrepublik Deutschland durchgef\u00fchrten Volksz\u00e4hlung vom 25. Mai 1987. Gem\u00e4\u00df Art 4. Abs. 3 des Bayerischen Feiertagsgesetzes entf\u00e4llt im gesamten Bundesland zu Mari\u00e4 Himmelfahrt an Schulen aller Gattungen der Unterricht. Diese Festlegung gilt ausdr\u00fccklich auch in den Teilen Bayerns, in denen dieser Tag kein gesetzlicher Feiertag ist. Eine \u00dcbersichtskarte aller Gemeinden, in denen Mari\u00e4 Himmelfahrt ein Feiertag ist, kann beim Bayerischen Landesamt f\u00fcr Statistik und Datenverarbeitung heruntergeladen werden (Link siehe unter \"Weitere Weblinks\")."},"Tag der Deutschen Einheit":{"datum":"2024-10-03","hinweis":""},"Allerheiligen":{"datum":"2024-11-01","hinweis":""},"Bu\u00df- und Bettag":{"datum":"2024-11-20","hinweis":"Gem\u00e4\u00df Art. 4 Nr. 3 des Bayerischen Feiertagsgesetzes[7] entf\u00e4llt im gesamten Bundesland am Bu\u00df- und Bettag an allen Schulen der Unterricht."},"1. Weihnachtstag":{"datum":"2024-12-25","hinweis":""},"2. Weihnachtstag":{"datum":"2024-12-26","hinweis":""}}"""
 
-    # holidayOnlyState: 
+    # holidayOnlyState:
 
 test "Full API response":
-    let response: GermanFullResponse = getHolidays(year)
-    check response[Bavaria].len() == 1
+    let response: GermanFullResponse = getAllHolidays(year)
+    check response[Bavaria].len() > 5
 
-test "Only dates API response":
-    let response: GermanOnlyDatesResponse = getOnlyDates(year)
-
+test "Only state":
+    let response: GermanOnlyDatesResponse = getStateHolidays(year, National)
+    check response.len() > 5

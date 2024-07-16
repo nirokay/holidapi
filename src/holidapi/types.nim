@@ -1,6 +1,7 @@
-import std/[tables, options, times]
+import std/[tables, options, times, strutils]
 
 const
+    dateFormat*: string = "yyyy-MM-dd"
     apiUrl* = (
         germany: "https://feiertage-api.de/api/?"
     )
@@ -15,3 +16,13 @@ type
         dateTime*: DateTime ## Parsed datetime from `date`
         duration*: Duration ## Holiday duration
         information*: Option[string] ## Additional information, if provided by the API
+
+
+proc `$`*(holiday: Holiday): string =
+    ## Converts `Holiday` to a string
+    var elements: seq[string] = @[
+        holiday.name,
+        "on " & holiday.dateTime.format(dateFormat),
+        "for " & $holiday.duration.inHours() & "h"
+    ]
+    result = elements.join(" ")
