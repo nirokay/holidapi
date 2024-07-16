@@ -16,6 +16,4 @@ test "Full API response":
 
 test "Only state":
     let response: GermanOnlyDatesResponse = getStateHolidays(year, National)
-    for holiday in response:
-        echo $holiday
     check response.len() > 5
