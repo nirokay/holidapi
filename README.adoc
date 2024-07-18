@@ -4,6 +4,10 @@
 
 _HolidAPI_ (pronounced: _"Holiday-P-I"_, haha get it?), is a wrapper for multiple APIs serving information about holidays.
 
+== Installation
+
+`nimble install holidapi`
+
 == Currently supported countries
 
 * Germany via https://www.feiertage-api.de/[feiertage-api.de]
@@ -24,3 +28,13 @@ for state, holidays in response:
     for i, holiday in holidays:
         echo &"{i}: {holiday.name}"
 ```
+
+See `./src/holidapi/types.nim` for documentation on the `Holiday` type.
+
+== Contributions
+
+Contributions are always welcome, especially expanding the list of supported countries/regions!
+
+== Licence
+
+This project is distributed under the `GPL-3.0` licence.
