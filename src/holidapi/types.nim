@@ -1,4 +1,5 @@
 import std/[options, times, strutils]
+import rawtypes, errors
 
 const
     dateFormat*: string = "yyyy-MM-dd"
@@ -16,7 +17,7 @@ type
         dateTime*: DateTime ## Parsed datetime from `date`
         duration*: Duration ## Holiday duration
         information*: Option[string] ## Additional information, if provided by the API
-
+        national*: bool
 
 proc `$`*(holiday: Holiday): string =
     ## Converts `Holiday` to a string
@@ -26,3 +27,59 @@ proc `$`*(holiday: Holiday): string =
         "for " & $holiday.duration.inHours() & "h"
     ]
     result = elements.join(" ")
+
+proc isNational*(holiday: Holiday): bool =
+    ## TODO
+
+
+
+proc getYear*(year: int): int = year ## Gets the year as `int`
+proc getYear*(year: DateTime): int = year.year ## Gets the year as `int`
+
+proc getNameInPreferredLanguage(name: seq[OpenHolidayRawName], language: string): string =
+    ## Tries to get the name of a holiday in a language, falls back to english, if
+    ## this fails. If this fails as well, it returns the first language in the sequence.
+    if unlikely name.len() == 0:
+        warning("Language block was empty, returning empty string...")
+        return ""
+    var english: Option[string]
+    for element in name:
+        let elementLanguage: string = element.language.toLower()
+        # Preferred language:
+        if elementLanguage == language.toLower():
+            return element.text
+        # Fallback to english:
+        if elementLanguage == "en":
+            english = some element.text
+
+    # Return english, if found:
+    if likely english.isSome():
+        warning("Did not find preferred lanuage '" & language & "', returning English.")
+        return get english
+
+    # Return first element, if preferred language and english not there:
+    warning("Did not find preferred language '" & language & "', did not find English, returning first language given.")
+    result = name[0].text
+
+proc toHoliday*(holiday: OpenHolidaysRawHoliday, preferredLanguage = "EN"): Holiday =
+    let name: string = holiday.name.getNameInPreferredLanguage(preferredLanguage)
+    result = Holiday(
+        name: name,
+        date: (
+            if holiday.startDate == holiday.endDate: holiday.startDate
+            else: holiday.startDate & " - " & holiday.endDate
+        )
+    )
+
+    let
+        startDate: DateTime = parse(holiday.startDate, dateFormat)
+        endDate: DateTime = parse(holiday.startDate, dateFormat) + days(1)
+    result.dateTime = startDate
+    result.duration = startDate - endDate
+
+    if name == "":
+        warning(@[
+            "Failed to parse name of holiday, field `name` remains empty.",
+            "Raw `OpenHolidaysRawHoliday` object: " & $holiday,
+            "Parsed `Holiday` object: " & $result
+        ])

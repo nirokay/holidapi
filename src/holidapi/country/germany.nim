@@ -52,9 +52,6 @@ proc constructUrl(year: int, onlyDates: bool, onlyState: string = ""): string =
 
     result &= params.join("&")
 
-proc getYear(year: int): int = year ## Gets the year as `int`
-proc getYear(year: DateTime): int = year.year ## Gets the year as `int`
-
 proc getState(short: string): Option[GermanState] =
     ## Gets the enum from its value.
     for state in GermanState:
