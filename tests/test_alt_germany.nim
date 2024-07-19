@@ -1,5 +1,5 @@
 import std/[unittest, json, tables, strutils]
-import holidapi/country/germany
+import holidapi/country/europe/germany_alt
 
 const
     year: int = 2024

@@ -10,6 +10,11 @@ const
         hours = 24
     )
 
+
+proc getYear*(year: int): int = year ## Gets the year as `int`
+proc getYear*(year: DateTime): int = year.year ## Gets the year as `int`
+
+
 type
     Holiday* = object ## Standardized Holiday object
         name*: string ## The name of the holiday
@@ -17,7 +22,12 @@ type
         dateTime*: DateTime ## Parsed datetime from `date`
         duration*: Duration ## Holiday duration
         information*: Option[string] ## Additional information, if provided by the API
-        national*: bool
+        nationwide*: Option[bool] ## is `None` when information could not be gotten
+        regions*: seq[string] ## Check `Holiday.nationwide` first, if `false` this will be populated, if information is provided
+
+proc `$$`*(holiday: Holiday): string =
+    ## Debug `$` stringification, like for all other objects
+    result = $holiday
 
 proc `$`*(holiday: Holiday): string =
     ## Converts `Holiday` to a string
@@ -27,14 +37,6 @@ proc `$`*(holiday: Holiday): string =
         "for " & $holiday.duration.inHours() & "h"
     ]
     result = elements.join(" ")
-
-proc isNational*(holiday: Holiday): bool =
-    ## TODO
-
-
-
-proc getYear*(year: int): int = year ## Gets the year as `int`
-proc getYear*(year: DateTime): int = year.year ## Gets the year as `int`
 
 proc getNameInPreferredLanguage(name: seq[OpenHolidayRawName], language: string): string =
     ## Tries to get the name of a holiday in a language, falls back to english, if
@@ -75,7 +77,13 @@ proc toHoliday*(holiday: OpenHolidaysRawHoliday, preferredLanguage = "EN"): Holi
         startDate: DateTime = parse(holiday.startDate, dateFormat)
         endDate: DateTime = parse(holiday.startDate, dateFormat) + days(1)
     result.dateTime = startDate
-    result.duration = startDate - endDate
+    result.duration = endDate - startDate
+
+    result.nationwide = some holiday.nationwide
+    if holiday.subdivisions.isSome():
+        for region in holiday.subdivisions.get():
+            if region.shortName != "": result.regions.add region.shortName
+            else: result.regions.add region.code
 
     if name == "":
         warning(@[

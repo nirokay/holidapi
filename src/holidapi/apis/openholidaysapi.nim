@@ -1,5 +1,5 @@
 import std/[times]
-import ../types, ../rawtypes, ../client, ../types
+import ../types, ../rawtypes, ../client
 
 type
     OpenHolidaysApiLanguage* = enum
@@ -73,10 +73,10 @@ proc constructUrl(country: string|OpenHolidaysApiCountry, year: int|DateTime): s
         "&validTo=" & $y & "-12-31",
     ].join("")
 
-proc getHolidays*(country: string|OpenHolidaysApiCountry, year: int|DateTime, language: string|OpenHolidaysApiCountry = English): seq[Holiday] =
+proc getHolidays*(country: string|OpenHolidaysApiCountry, year: int|DateTime, language: string|OpenHolidaysApiLanguage = English): seq[Holiday] =
     ## Get holidays for country in preferred langauge (english as fallback) for a year
     let
-        url: string = constructUrl(year, $country)
+        url: string = constructUrl($country, year)
         response = url.requestParsedData(seq[OpenHolidaysRawHoliday])
 
     for holiday in response:
