@@ -1,4 +1,4 @@
-import std/[times]
+import std/[times, strutils]
 import ../types, ../rawtypes, ../client
 
 type
