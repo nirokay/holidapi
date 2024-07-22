@@ -1,6 +1,6 @@
 # Package
 
-version       = "1.0.0"
+version       = "1.0.1"
 author        = "nirokay"
 description   = "Nim wrappers for holiday APIs."
 license       = "GPL-3.0-only"

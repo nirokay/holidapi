@@ -65,19 +65,40 @@ type
         VaticanCity = "VA"
 
 
-proc constructUrl(country: string|OpenHolidaysApiCountry, year: int|DateTime): string =
-    let y: int = year.getYear()
+proc constructUrl(country: string, dateFrom, dateTill: DateTime): string =
+    ## Constructs the URL for OpenHolidaysApi
     result = @[
         "https://openholidaysapi.org/PublicHolidays?countryIsoCode=", $country,
-        "&validFrom=" & $y & "-01-01",
-        "&validTo=" & $y & "-12-31",
+        "&validFrom=" & dateFrom.format(dateFormat),
+        "&validTo=" & dateTill.format(dateFormat)
     ].join("")
 
-proc getHolidays*(country: string|OpenHolidaysApiCountry, year: int|DateTime, language: string|OpenHolidaysApiLanguage = English): seq[Holiday] =
-    ## Get holidays for country in preferred langauge (english as fallback) for a year
-    let
-        url: string = constructUrl($country, year)
-        response = url.requestParsedData(seq[OpenHolidaysRawHoliday])
+proc constructUrl(country: string, year: int): string =
+    ## Constructs the URL for OpenHolidaysApi
+    result = constructUrl(country,
+        dateFrom = dateTime(year, mJan, 1),
+        dateTill = dateTime(year, mDec, 31)
+    )
+
+proc fetch(url: string, language: string|OpenHolidaysApiLanguage): seq[Holiday] =
+    ## Fetches a sequence of `Holiday`s from the API
+    ##
+    ## Raises `HolidAPIError`, if network or JSON parsing encountered errors
+    let response = url.requestParsedData(seq[OpenHolidaysRawHoliday])
 
     for holiday in response:
         result.add holiday.toHoliday($language)
+
+proc getHolidays*(country: string|OpenHolidaysApiCountry, year: int, language: string|OpenHolidaysApiLanguage = English): seq[Holiday] =
+    ## Get holidays for country in preferred langauge (english as fallback) for a year
+    ##
+    ## Raises `HolidAPIError`, if network or JSON parsing encountered errors
+    let url: string = constructUrl($country, year)
+    result = fetch(url, language)
+
+proc getHolidays*(country: string|OpenHolidaysApiCountry, dateFrom, dateTill: DateTime, language: string|OpenHolidaysApiLanguage = English): seq[Holiday] =
+    ## Get holidays for country in preferred langauge (english as fallback) for custom range
+    ##
+    ## Raises `HolidAPIError`, if network or JSON parsing encountered errors
+    let url: string = constructUrl($country, dateFrom, dateTill)
+    result = fetch(url, language)
