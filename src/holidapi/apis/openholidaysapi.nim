@@ -1,3 +1,8 @@
+## OpenHolidaysApi
+## ===============
+##
+## [Website](https://www.openholidaysapi.org/)
+
 import std/[times, strutils]
 import ../types, ../rawtypes, ../client
 
