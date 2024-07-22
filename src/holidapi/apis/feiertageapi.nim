@@ -1,3 +1,8 @@
+## Feiertage-API
+## =============
+##
+## [Website](https://www.feiertage-api.de/)
+
 import std/[strutils]
 import ../shared
 export shared
