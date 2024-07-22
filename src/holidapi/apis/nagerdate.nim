@@ -4,7 +4,7 @@
 ## [Website](https://date.nager.at/)
 
 import std/[strutils]
-import ../shared, ../rawtypes, ../types
+import ../shared, ../rawtypes, ../client
 export shared
 
 type
@@ -132,13 +132,13 @@ proc constructUrl(country: string|NagerDateApiCountry, year: int): string =
         $country
     ].join("/")
 
-proc getHolidays*(country: string|NagerDateApiCountry, year: int): seq[Holiday] =
+proc getHolidays*(country: string|NagerDateApiCountry, year: int, names: NagerDateNameLanguage = englishName): seq[Holiday] =
     ## Get holidays for country for a year
     ##
     ## Raises `HolidAPIError`, if network or JSON parsing encountered errors
     let
         url: string = constructUrl(country, year)
-        response: string = url.requestParsedData(seq[NagerDateRawHoliday])
+        response = url.requestParsedData(seq[NagerDateRawHoliday])
 
     for holiday in response:
         result.add holiday.toHoliday()

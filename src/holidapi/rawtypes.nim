@@ -27,6 +27,6 @@ type
         fixed*: bool
         global*: bool
         counties*: Option[seq[string]]
-        launchYear*: int
+        launchYear*: Option[int]
         types*: seq[string]
     NagerDateRawResponse* = seq[NagerDateRawHoliday]

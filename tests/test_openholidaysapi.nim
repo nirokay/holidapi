@@ -1,4 +1,4 @@
-import std/[unittest, json, strutils, times, sequtils]
+import std/[unittest, strutils, times, sequtils]
 import holidapi/api/openholidaysapi
 
 const year: int = 2024
@@ -10,7 +10,7 @@ test "Fetching holidays - year":
     holidaysYear = Germany.getHolidays(year)
     check holidaysYear.len() != 0
 
-test "Reading values":
+test "Reading values - year":
     for holiday in holidaysYear:
         check holiday.name != ""
         if holiday.nationwide.get():

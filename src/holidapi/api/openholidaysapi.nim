@@ -1,4 +1,4 @@
-## European countries via OpenHolidaysAPI
+## (European) Countries via OpenHolidaysAPI
 ## ======================================
 
 runnableExamples -d:off:
