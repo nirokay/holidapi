@@ -18,3 +18,15 @@ type
         `type`*: string ## Public holiday or not
 
     OpenHolidaysRawResponse* = seq[OpenHolidaysRawHoliday]
+
+    NagerDateRawHoliday* = object
+        date*: string
+        localName*: string
+        name*: string
+        countryCode*: string
+        fixed*: bool
+        global*: bool
+        counties*: Option[seq[string]]
+        launchYear*: int
+        types*: seq[string]
+    NagerDateRawResponse* = seq[NagerDateRawHoliday]

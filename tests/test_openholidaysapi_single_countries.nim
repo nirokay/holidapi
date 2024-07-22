@@ -1,5 +1,5 @@
 import std/[unittest]
-import holidapi/country/europe/[
+import holidapi/api/openholidaysapi/[
     albania,
     andorra,
     austria,

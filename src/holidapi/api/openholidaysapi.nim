@@ -3,7 +3,7 @@
 
 runnableExamples -d:off:
     import std/[strformat]
-    import holidapi/country/europe
+    import holidapi/api/openholidaysapi
 
     let
         holidaysInEnglish: seq[Holiday] = Netherlands.getHolidays(2024)

@@ -3,8 +3,12 @@
 ##
 ## [Website](https://date.nager.at/)
 
+import std/[strutils]
+import ../shared, ../rawtypes, ../types
+export shared
+
 type
-    NagerDateApiCountry* = enum
+    NagerDateApiCountry* = enum ## https://date.nager.at/Country
         Andorra = "AD"
         Albania = "AL"
         Armenia = "AM"
@@ -119,3 +123,22 @@ type
         Vietnam = "VN"
         SouthAfrica = "ZA"
         Zimbabwe = "ZW"
+
+proc constructUrl(country: string|NagerDateApiCountry, year: int): string =
+    ## Constructs the URL for nager.date
+    result = @[
+        apiUrl.nagerdate,
+        $year,
+        $country
+    ].join("/")
+
+proc getHolidays*(country: string|NagerDateApiCountry, year: int): seq[Holiday] =
+    ## Get holidays for country for a year
+    ##
+    ## Raises `HolidAPIError`, if network or JSON parsing encountered errors
+    let
+        url: string = constructUrl(country, year)
+        response: string = url.requestParsedData(seq[NagerDateRawHoliday])
+
+    for holiday in response:
+        result.add holiday.toHoliday()

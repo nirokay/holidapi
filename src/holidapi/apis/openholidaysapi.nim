@@ -7,7 +7,7 @@ import std/[times, strutils]
 import ../types, ../rawtypes, ../client
 
 type
-    OpenHolidaysApiLanguage* = enum
+    OpenHolidaysApiLanguage* = enum ## https://www.openholidaysapi.org/en/#languages
         Belarusian = "BE" ## беларускі
         Bulgarian = "BG" ## Български
         Catalan = "CA" ## Català
@@ -37,7 +37,7 @@ type
         Slovenian = "SL" ## Slovenski
         Albanian = "SQ" ## Shqip
 
-    OpenHolidaysApiCountry* = enum
+    OpenHolidaysApiCountry* = enum ## https://www.openholidaysapi.org/en/#countries
         Andorra = "AD"
         Albania = "AL"
         Austria = "AT"
@@ -73,7 +73,8 @@ type
 proc constructUrl(country: string, dateFrom, dateTill: DateTime): string =
     ## Constructs the URL for OpenHolidaysApi
     result = @[
-        "https://openholidaysapi.org/PublicHolidays?countryIsoCode=", $country,
+        apiUrl.openholidaysapi,
+        "countryIsoCode=", $country,
         "&validFrom=" & dateFrom.format(dateFormat),
         "&validTo=" & dateTill.format(dateFormat)
     ].join("")

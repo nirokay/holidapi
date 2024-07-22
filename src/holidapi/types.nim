@@ -4,7 +4,9 @@ import rawtypes, errors
 const
     dateFormat*: string = "yyyy-MM-dd"
     apiUrl* = (
-        germany: "https://feiertage-api.de/api/?"
+        feiertageapi: "https://feiertage-api.de/api/?",
+        openholidaysapi: "https://openholidaysapi.org/PublicHolidays?",
+        nagerdate: "https://date.nager.at/api/v3/publicholidays"
     )
     fullDayDuration*: Duration = initDuration(
         hours = 24
@@ -24,6 +26,11 @@ type
         information*: Option[string] ## Additional information, if provided by the API
         nationwide*: Option[bool] ## is `None` when information could not be gotten
         regions*: seq[string] ## Check `Holiday.nationwide` first, if `false` this will be populated, if information is provided
+
+    NagerDateNameLanguage* = enum
+        englishName
+        localName
+        bothNames
 
 proc `$$`*(holiday: Holiday): string =
     ## Debug `$` stringification, like for all other objects
@@ -64,6 +71,7 @@ proc getNameInPreferredLanguage(name: seq[OpenHolidayRawName], language: string)
     result = name[0].text
 
 proc toHoliday*(holiday: OpenHolidaysRawHoliday, preferredLanguage = "EN"): Holiday =
+    ## Converts `OpenHolidaysRawHoliday` to `Holiday`
     let name: string = holiday.name.getNameInPreferredLanguage(preferredLanguage)
     result = Holiday(
         name: name,
@@ -91,3 +99,19 @@ proc toHoliday*(holiday: OpenHolidaysRawHoliday, preferredLanguage = "EN"): Holi
             "Raw `OpenHolidaysRawHoliday` object: " & $holiday,
             "Parsed `Holiday` object: " & $result
         ])
+
+proc toHoliday*(holiday: NagerDateRawHoliday, nameType: NagerDateNameLanguage = englishName): Holiday =
+    ## Converts `NagerDateRawHoliday` to `Holiday`
+    result = Holiday(
+        name: (
+            case nameType:
+            of englishName: holiday.name
+            of localName: holiday.localName
+            of bothNames: holiday.name & "(" & holiday.localName & ")"
+        ),
+        date: holiday.date,
+        dateTime: holiday.date.parse(dateFormat),
+        duration: fullDayDuration,
+        nationwide: some holiday.global,
+        regions: holiday.counties.get(@[])
+    )

@@ -1,5 +1,5 @@
 import std/[tables, times, options]
-import ../../shared, ../../client, ../../apis/feiertageapi
+import ../shared, ../client, ../apis/feiertageapi
 export shared
 export GermanState
 

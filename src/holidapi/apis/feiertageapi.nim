@@ -43,7 +43,7 @@ proc getState*(short: string): Option[GermanState] =
 
 proc constructUrl*(year: int, onlyDates: bool, onlyState: string = ""): string =
     ## Constructs the url, im very lazy lol
-    result = apiUrl.germany
+    result = apiUrl.feiertageapi
     var params: seq[string] = @[
         "jahr=" & $year
     ]

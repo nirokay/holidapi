@@ -1,5 +1,5 @@
 import std/[unittest, json, strutils, times, sequtils]
-import holidapi/country/europe
+import holidapi/api/openholidaysapi
 
 const year: int = 2024
 var
