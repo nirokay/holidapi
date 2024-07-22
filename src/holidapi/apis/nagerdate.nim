@@ -110,7 +110,7 @@ type
         Slovenia = "SI"
         SvalbardAndJanMayen = "SJ"
         Slovakia = "SK"
-        San Marino = "SM"
+        SanMarino = "SM"
         Suriname = "SR"
         ElSalvador = "SV"
         Tunisia = "TN"
