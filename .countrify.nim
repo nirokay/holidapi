@@ -117,8 +117,8 @@ const countries: seq[string] = @[
     "Zimbabwe"
 ]
 
-let templateFile: string = readFile("src/api/nagerdate/template.nim")
+let templateFile: string = readFile("src/holidapi/api/nagerdate/template.nim")
 
 for country in countries:
-    let fileName: string = "src/api/nagerdate/" & country.toLower() & ".nim"
+    let fileName: string = "src/holidapi/api/nagerdate/" & country.toLower() & ".nim"
     fileName.writeFile(templateFile.replace("REPLACEME", country))
