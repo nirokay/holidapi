@@ -7,5 +7,5 @@ const country: NagerDateApiCountry = Suriname
 proc getHolidays*(year: int|DateTime, nameLanguage: NagerDateNameLanguage = englishName): seq[Holiday] =
     ## Override for country `Suriname`
     ##
-    ## Get holidays for country in preferred langauge (english as fallback) for a year
+    ## Get holidays for country in for a year
     result = country.getHolidays(year, nameLanguage)
