@@ -106,8 +106,16 @@ proc toHoliday*(holiday: NagerDateRawHoliday, nameType: NagerDateNameLanguage = 
         name: (
             case nameType:
             of englishName: holiday.name
-            of localName: holiday.localName
-            of bothNames: holiday.name & "(" & holiday.localName & ")"
+            of localName:
+                if holiday.localName != "":
+                    holiday.localName
+                else:
+                    holiday.name
+            of bothNames:
+                if holiday.localName != "":
+                    holiday.name & " (" & holiday.localName & ")"
+                else:
+                    holiday.name
         ),
         date: holiday.date,
         dateTime: holiday.date.parse(dateFormat),

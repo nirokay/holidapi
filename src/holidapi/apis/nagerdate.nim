@@ -141,4 +141,4 @@ proc getHolidays*(country: string|NagerDateApiCountry, year: int, names: NagerDa
         response = url.requestParsedData(seq[NagerDateRawHoliday])
 
     for holiday in response:
-        result.add holiday.toHoliday()
+        result.add holiday.toHoliday(names)

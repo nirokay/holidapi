@@ -17,9 +17,27 @@ You do not see your country in this list? Help us by expanding the API wrappers!
 == Examples
 
 ```nim
+import std/[strformat]
+import holidapi/api/nagerdate
+
+let
+    holidays: seq[Holiday] = SouthKorea.getHolidays(2024, bothNames)
+    # `bothNames` will get the english and local name of the holiday
+    # example:
+    #
+    # - South Korea: New Year's Day (새해)
+    # - France:      New Year's Day (Jour de l'an)
+    # - Russia:      New Year's Day (Новый год)
+
+for holiday in holidays:
+    echo &"{holiday.name} is on the " & holiday.dateTime.format("yyyy-MM-dd") &
+        &" and goes on for " & $holiday.duration.inDays() & " day(s)!"
+
+```
+```nim
 # European holiday API
 import std/[strformat]
-import holidapi/country/europe
+import holidapi/api/openholidaysapi
 
 let
     holidaysInEnglish: seq[Holiday] = Netherlands.getHolidays(2024)
@@ -30,22 +48,9 @@ for holiday in holidaysInEnglish:
         &" and goes on for " & $holiday.duration.inDays() & " day(s)!"
 ```
 ```nim
-# European holiday API (for single country)
-import std/[strformat]
-import holidapi/country/europe/germany
-
-let
-    holidaysInEnglish: seq[Holiday] = getHolidays(2024)
-    holidaysInGerman {.used.}: seq[Holiday] = getHolidays(2024, German)
-
-for holiday in holidaysInEnglish:
-    echo &"{holiday.name} is on the " & holiday.dateTime.format("yyyy-MM-dd") &
-        &" and goes on for " & $holiday.duration.inDays() & " day(s)!"
-```
-```nim
 # Alternative German API
 import std/[strformat]
-import holidapi/country/europe/germany_alt
+import holidapi/api/feiertageapi
 
 const
     year: int = 2024
