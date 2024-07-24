@@ -1,0 +1,153 @@
+= HolidAPI Countries
+
+== APIs
+
+* European countries via https://openholidaysapi.org/[openholidaysapi.org]:
+    - Albania
+    - Andorra
+    - Austria
+    - Belarus
+    - Belgium
+    - Bulgaria
+    - Croatia
+    - Czechia
+    - Estonia
+    - France
+    - Germany
+    - Hungary
+    - Ireland
+    - Italy
+    - Latvia
+    - Lichtenstein
+    - Lithuania
+    - Luxembourg
+    - Malta
+    - Moldova
+    - Monaco
+    - Netherlands
+    - Poland
+    - Portugal,
+    - Romania,
+    - San Marino
+    - Slovenia
+    - Spain
+    - Switzerland,
+    - Vatican City
+
+* Germany (alternative) via https://www.feiertage-api.de/[feiertage-api.de]
+
+* Countries via https://date.nager.at/[nager.date]:
+    - Andorra
+    - Albania
+    - Armenia
+    - Argentina
+    - Austria
+    - Australia
+    - Åland Islands
+    - Bosnia And Herzegovina
+    - Barbados
+    - Belgium
+    - Bulgaria
+    - Benin
+    - Bolivia
+    - Brazil
+    - Bahamas
+    - Botswana
+    - Belarus
+    - Belize
+    - Canada
+    - Switzerland
+    - Chile
+    - China
+    - Colombia
+    - Costa Rica
+    - Cuba
+    - Cyprus
+    - Czechia
+    - Germany
+    - Denmark
+    - Dominican Republic
+    - Ecuador
+    - Estonia
+    - Egypt
+    - Spain
+    - Finland
+    - Faroe Islands
+    - France
+    - Gabon
+    - United Kingdom
+    - Grenada
+    - Georgia
+    - Guernsey
+    - Gibraltar
+    - Greenland
+    - Gambia
+    - Greece
+    - Guatemala
+    - Guyana
+    - HongKong
+    - Honduras
+    - Croatia
+    - Haiti
+    - Hungary
+    - Indonesia
+    - Ireland
+    - Isle Of Man
+    - Iceland
+    - Italy
+    - Jersey
+    - Jamaica
+    - Japan
+    - South Korea
+    - Kazakhstan
+    - Liechtenstein
+    - Lesotho
+    - Lithuania
+    - Luxembourg
+    - Latvia
+    - Morocco
+    - Monaco
+    - Moldova
+    - Montenegro
+    - Madagascar
+    - North Macedonia
+    - Mongolia
+    - Montserrat
+    - Malta
+    - Mexico
+    - Mozambique
+    - Namibia
+    - Niger
+    - Nigeria
+    - Nicaragua
+    - Netherlands
+    - Norway
+    - New Zealand
+    - Panama
+    - Peru
+    - Papua New Guinea
+    - Poland
+    - Puerto Rico
+    - Portugal
+    - Paraguay
+    - Romania
+    - Serbia
+    - Russia
+    - Sweden
+    - Singapore
+    - Slovenia
+    - Svalbard And Jan Mayen
+    - Slovakia
+    - San Marino
+    - Suriname
+    - El Salvador
+    - Tunisia
+    - Turkey
+    - Ukraine
+    - United States
+    - Uruguay
+    - Vatican City
+    - Venezuela
+    - Vietnam
+    - South Africa
+    - Zimbabwe

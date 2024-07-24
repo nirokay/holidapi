@@ -10,25 +10,7 @@ _HolidAPI_ (pronounced: _"Holiday-P-I"_, haha get it?), is a wrapper for multipl
 
 == Currently supported countries
 
-* European countries via https://openholidaysapi.org/[openholidaysapi.org]:
-    - Albania, Andorra, Austria
-    - Belarus, Belgium, Bulgaria
-    - Croatia, Czechia
-    - Estonia
-    - France
-    - Germany
-    - Hungary
-    - Ireland, Italy
-    - Latvia, Lichtenstein, Lithuania, Luxembourg
-    - Malta, Moldova, Monaco
-    - Netherlands
-    - Poland, Portugal,
-    - Romania,
-    - San Marino, Slovenia, Spain, Switzerland,
-    - Vatican City
-
-
-* Germany (alternative) via https://www.feiertage-api.de/[feiertage-api.de]
+See `./COUNTRIES.adoc` for a list of supported countries.
 
 You do not see your country in this list? Help us by expanding the API wrappers! :D
 
