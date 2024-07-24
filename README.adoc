@@ -52,10 +52,7 @@ for holiday in holidaysInEnglish:
 import std/[strformat]
 import holidapi/api/feiertageapi
 
-const
-    year: int = 2024
-
-let response: OrderedTable[GermanState, seq[Holiday]] = getAllHolidays(year)
+let response: OrderedTable[GermanState, seq[Holiday]] = getAllHolidays(2024)
 
 for state, holidays in response:
     echo &"Holidays for state {state}:"
